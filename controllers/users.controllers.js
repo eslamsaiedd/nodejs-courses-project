@@ -37,7 +37,6 @@ const register = asyncWrapper(async (req, res, next) => {
     // password hashing
     const hashedPassword = await bcrypt.hash(password, 8)
 
-
     const newUser = new User({
         firstName,
         lastName, 
@@ -79,7 +78,7 @@ const login = asyncWrapper( async (req, res, next) => {
         //* logged in successfully
         
         const token = await generateJWT({email: user.email, id: user._id, role: user.role})
-       return res.json({status: httpStatus.SUCCESS, data: {token}});
+        return res.json({status: httpStatus.SUCCESS, data: {token}});
     }else {
         const error = appError.create("something went wrong", 500, httpStatus.ERROR);
         return next(error);
